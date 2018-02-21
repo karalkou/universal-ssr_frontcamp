@@ -54,6 +54,9 @@ background-color: white;
   top: 0;
   right: 0;
   font-size: 18px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 &__title{
