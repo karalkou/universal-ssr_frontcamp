@@ -5,7 +5,10 @@ import App from './App';
 import { ConnectedRouter as Router } from 'react-router-redux';
 import history from '../history';
 
-const store = configureStore({});
+// Grab the state from a global variable injected into the server-generated HTML
+const store = configureStore(window.PRELOADED_STATE);
+// Allow the passed state to be garbage-collected
+delete window.PRELOADED_STATE;
 
 class Root extends Component {
     static propTypes = {};
