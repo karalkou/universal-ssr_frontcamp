@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import logger from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { END } from 'redux-saga';
 import reducer from './reducer';
 import history from '../history';
 import saga from './saga';
 
-const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -19,10 +19,13 @@ const enhancer = composeEnhancers(
     applyMiddleware(routerMiddleware(history), sagaMiddleware, logger)
 );
 
-const store = createStore(reducer, enhancer);
+export default (initialState) => {
+    const store = createStore(reducer, initialState, enhancer);
 
-sagaMiddleware.run(saga);
+    store.runSaga = sagaMiddleware.run;
+    store.close = () => store.dispatch(END);
+    sagaMiddleware.run(saga);
 
-window.store = store;
+    return store;
+};
 
-export default store;

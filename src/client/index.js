@@ -4,7 +4,7 @@ import 'typeface-open-sans';
 import registerServiceWorker from './registerServiceWorker';
 import Root from './components/Root';
 
-ReactDOM.render(
+ReactDOM.hydrate(
     <Root />,
     document.getElementById('root')
 );
