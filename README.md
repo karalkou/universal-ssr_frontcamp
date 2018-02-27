@@ -3,5 +3,6 @@ To DO:
 2. ~~Configure nodemon (to watch only sever files?)~~
 3. Separate dev and prod modes
 4. Add hot reload
-5. Add requests to API
+5. Add requests to API (difficulties with ImmutableJS and SSR)
 6. Add authentication
+7. Add tests
