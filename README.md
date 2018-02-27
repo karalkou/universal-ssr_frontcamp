@@ -1,4 +1,7 @@
 To DO:
-1. Separate dev and prod modes
-2. Add hot reload
-3. Add requests to API
+1. Add Webpack 4
+2. ~~Configure nodemon (to watch only sever files?)~~
+3. Separate dev and prod modes
+4. Add hot reload
+5. Add requests to API
+6. Add authentication
