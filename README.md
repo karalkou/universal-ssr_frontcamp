@@ -1,5 +1,5 @@
 To DO:
-1. Add Webpack 4
+1. ~~Add Webpack 4~~
 2. ~~Configure nodemon (to watch only sever files?)~~
 3. Separate dev and prod modes
 4. Add hot reload
