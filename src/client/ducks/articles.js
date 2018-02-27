@@ -43,7 +43,7 @@ const mockResponse = [
     }
 ];
 
-const ArticleModel = Record({
+export const ArticleModel = Record({
     createdAt: null,
     updatedAt: null,
     id: null,
@@ -63,7 +63,7 @@ export default function reducer(state = new ReducerRecord(), action) {
 
     switch (type) {
         case LOAD_ALL_ARTICLES:
-            console.log('arrayToMap(mockResponse, ArticleModel): ', arrayToMap(mockResponse, ArticleModel));
+            console.log('\\\\\\**** arrayToMap(mockResponse, ArticleModel): ', arrayToMap(mockResponse, ArticleModel));
             return state
                 .set('entities', arrayToMap(mockResponse, ArticleModel));
 
