@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "webpack -d",
-        "start": "npm run dev && babel-node ./src/server",
+        "start": "npm run dev && nodemon ./src/server --exec babel-node",
         "lint": "eslint '*'"
     },
     "keywords": [

@@ -59,16 +59,11 @@ function handleRender(req, res) {
 
         const { articles, filters } = preloadedStatePre;
 
-        console.log('***\\ articles from server: ', articles);
-        console.log('***\\ articles.toJS() from server: ', articles.toJS());
-
         const preloadedState = {
             ...preloadedStatePre,
             articles: articles.toJS(),
             filters: filters.toJS(),
         };
-
-        console.log('***\\ preloadedState: ', preloadedState);
 
         return res.send(renderFullPage(html, preloadedState));
     });

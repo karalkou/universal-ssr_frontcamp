@@ -15,8 +15,17 @@ const composeEnhancers =
             // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
         }) : compose;
 
+const currentAppMiddlewares = [];
+
+currentAppMiddlewares.push(routerMiddleware(history));
+currentAppMiddlewares.push(sagaMiddleware);
+
+if (typeof window !== 'undefined') {
+    currentAppMiddlewares.push(logger);
+}
+
 const enhancer = composeEnhancers(
-    applyMiddleware(routerMiddleware(history), sagaMiddleware, logger)
+    applyMiddleware(...currentAppMiddlewares)
 );
 
 export default (initialState) => {

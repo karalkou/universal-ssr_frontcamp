@@ -43,7 +43,7 @@ class BlogList extends Component {
 
 export default connect(
     (state) => {
-        console.log('state: ', state);
+        // console.log('state: ', state);
         const { filters } = state;
         const list = mapToArr(state.articles.entities);
         const { byAuthorAlphabet: { direction, isSorted } } = filters;

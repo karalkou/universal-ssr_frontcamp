@@ -63,7 +63,6 @@ export default function reducer(state = new ReducerRecord(), action) {
 
     switch (type) {
         case LOAD_ALL_ARTICLES:
-            console.log('\\\\\\**** arrayToMap(mockResponse, ArticleModel): ', arrayToMap(mockResponse, ArticleModel));
             return state
                 .set('entities', arrayToMap(mockResponse, ArticleModel));
 
@@ -119,12 +118,9 @@ export function * addArcticleSaga(action) {
         payload: { id, ...action.payload }
     });
 
-    console.log('---', effect);
-
     yield effect;
 }
 
 export function * saga() {
-    console.log('---', 'saga up and running');
     yield takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga)
 }
