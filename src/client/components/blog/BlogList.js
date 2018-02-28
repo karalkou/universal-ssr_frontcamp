@@ -5,33 +5,30 @@ import bemto from 'bemto-components';
 import { connect } from 'react-redux';
 import { loadAllArticles, removeArticle } from '../../ducks/articles';
 import BlogListItem from './BlogListItem';
-import { mapToArr } from "../../utils";
+import { mapToArr } from '../../utils';
 
 class BlogList extends Component {
-
-    componentDidMount(){
+    componentDidMount() {
         const { list, loadAllArticles } = this.props;
-        if ( !list.length ) {
+        if (!list.length) {
             loadAllArticles();
         }
     }
 
-    onClick = (id) => (ev) => {
+    onClick = id => (ev) => {
         this.props.removeArticle(id);
     };
 
     render() {
         const { list } = this.props;
 
-        const listItems = list.map((item) => {
-            return (
-                <BlogListItem
-                    key={item.id}
-                    item={item}
-                    onClick={this.onClick(item.id)}
-                />
-            );
-        });
+        const listItems = list.map(item => (
+            <BlogListItem
+                key={item.id}
+                item={item}
+                onClick={this.onClick(item.id)}
+            />
+        ));
 
         return (
             <BlogListStyled>
@@ -50,7 +47,7 @@ export default connect(
 
         let filteredArticles;
 
-        if ( isSorted ) {
+        if (isSorted) {
             filteredArticles = [...list].sort((a, b) => {
                 if (direction === 1) {
                     if (a.author.toLowerCase() < b.author.toLowerCase()) return -1;
@@ -62,15 +59,15 @@ export default connect(
             });
 
             return {
-                list: filteredArticles
-            }
+                list: filteredArticles,
+            };
         }
 
         return {
-            list
-        }
+            list,
+        };
     },
-    { loadAllArticles, removeArticle}
+    { loadAllArticles, removeArticle },
 )(BlogList);
 
 /* styles */

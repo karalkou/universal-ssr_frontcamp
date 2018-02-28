@@ -4,15 +4,18 @@ import styled from 'styled-components';
 import bemto from 'bemto-components';
 
 class BlogListItem extends Component {
-
     render() {
-        const { item: {title, body, author, id}, onClick } = this.props;
+        const {
+            item: {
+                title, body, author, id,
+            }, onClick,
+        } = this.props;
 
         return (
             <BlogListItemStyled
                 __del={ <span onClick={onClick}>X</span>}
                 __title={ `${title}` }
-                __body={ `${body ? body: ''}` }
+                __body={ `${body || ''}` }
                 __author={ `${author}` }
             />
         );
@@ -25,7 +28,7 @@ BlogListItem.defaultProps = {};
 export default BlogListItem;
 
 /* styles */
-var BlogListItemStyled = styled(bemto({
+const BlogListItemStyled = styled(bemto({
     content: [
         {
             elem: 'del',
@@ -38,8 +41,8 @@ var BlogListItemStyled = styled(bemto({
         },
         {
             elem: 'author',
-        }
-    ]
+        },
+    ],
 }))`
 position: relative;
 padding: 15px;
@@ -83,5 +86,4 @@ background-color: white;
     }
 }
 `;
-
 

@@ -15,11 +15,11 @@ export const FILTER_BY_AUTHOR_ALPHABET = `${prefix}/FILTER_BY_AUTHOR_ALPHABET`;
  * */
 const byAuthorAlphabetModel = Record({
     isSorted: false,
-    direction: -1
+    direction: -1,
 });
 
 export const ReducerRecord = Record({
-    byAuthorAlphabet: new byAuthorAlphabetModel()
+    byAuthorAlphabet: new byAuthorAlphabetModel(),
 });
 
 export default function reducer(state = new ReducerRecord(), action) {
@@ -46,9 +46,9 @@ export function filterByAuthorAlphabet(direction) {
     return {
         type: FILTER_BY_AUTHOR_ALPHABET,
         payload: direction,
-    }
+    };
 }
 
 /**
  * Sagas
- **/
+ * */

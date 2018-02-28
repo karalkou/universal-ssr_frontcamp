@@ -18,7 +18,7 @@ PageContainer.defaultProps = {};
 
 export default PageContainer;
 
-var PageContainerStyled = styled(bemto({}))`
+const PageContainerStyled = styled(bemto({}))`
 width: 100%;
 max-width: 960px;
 margin: 0 auto;

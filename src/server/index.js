@@ -8,5 +8,5 @@ server.use(express.static('public'));
 server.get('/*', handleRender);
 
 server.listen(port, () => {
-  console.info(`Express listening on port ${port}`);
+    console.info(`Express listening on port ${port}`);
 });

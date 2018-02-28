@@ -9,10 +9,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Route path='/' component={StartPage}/>
-                <Route path='/admin' component={AdminPage}/>
+                <Route path="/" component={StartPage}/>
+                <Route path="/admin" component={AdminPage}/>
             </div>
-        )
+        );
     }
 }
 

@@ -6,6 +6,6 @@ import Root from './components/Root';
 
 ReactDOM.hydrate(
     <Root />,
-    document.getElementById('root')
+    document.getElementById('root'),
 );
 registerServiceWorker();
