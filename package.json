@@ -4,9 +4,11 @@
     "description": "Server Side Rendering with ReactJS, React Router v4, Redux",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack -d",
+        "lint-js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
+        "lint": "yarn run lint-js --fix",
+        "dev": "webpack --env development --progress --color",
         "start": "npm run dev && nodemon ./src/server --exec babel-node",
-        "lint": "eslint '*'"
+        "build": "webpack --env production --progress --color"
     },
     "keywords": [
         "ssr",
@@ -38,7 +40,9 @@
         "prettier": "1.10.2",
         "style-loader": "^0.20.2",
         "webpack": "^4.0.1",
-        "webpack-cli": "^2.0.9"
+        "webpack-cli": "^2.0.9",
+        "webpack-dev-server": "^3.1.0",
+        "webpack-merge": "^4.1.2"
     },
     "dependencies": {
         "babel-polyfill": "^6.26.0",
