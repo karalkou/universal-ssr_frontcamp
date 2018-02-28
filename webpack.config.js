@@ -1,82 +1,54 @@
 const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+// const devserver = require('./webpack/devserver');
+const styles = require('./webpack/styles');
+const jsConfig = require('./webpack/js');
+const uglifyJS = require('./webpack/js.uglify');
+const images = require('./webpack/images');
+const fonts = require('./webpack/fonts');
 
-module.exports = {
-    entry: ['babel-polyfill', './src/client/index.js'],
+/* const PATHS = {
+    source: path.join(__dirname, 'source'),
+    build: path.join(__dirname, 'build'),
+}; */
 
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve('./public/js/'),
+const common = merge([
+    {
+        entry: ['babel-polyfill', './src/client/index.js'],
+
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve('./public/js/'),
+        },
+
+        resolve: {
+            extensions: ['.js', '.jsx'],
+        },
+
+        plugins: [],
     },
 
-    resolve: {
-        extensions: ['.js', '.jsx'],
-    },
+    jsConfig(),
+    images(),
+    fonts(),
+]);
 
-    module: {
-        rules: [
-            {
-                test: /\.js?$/,
-                exclude: [/node_modules/],
-                use: 'babel-loader',
-            },
-            {
-                test: /\.(css|less|styl|scss|sass|sss)$/,
-                rules: [
-                    {
-                        use: 'style-loader',
-                    },
+module.exports = function returnConfig(env) {
+    if (env === 'production') {
+        return merge([
+            common,
+            uglifyJS(),
+        ]);
+    }
 
-                    // Process external/third-party styles
-                    {
-                        exclude: path.resolve(__dirname, '../../src'),
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            sourceMap: true,
-                            minimize: false,
-                        },
-                    },
+    if (env === 'development') {
+        return merge([
+            common,
+            // devserver(),
+            styles(),
+        ]);
+    }
 
-                    // Process internal/project styles (from src folder)
-                    {
-                        include: path.resolve(__dirname, '../../src'),
-                        loader: 'css-loader',
-                        options: {
-                            // CSS Loader https://github.com/webpack/css-loader
-                            importLoaders: 1,
-                            sourceMap: true,
-                            // CSS Modules https://github.com/css-modules/css-modules
-                            modules: true,
-                            localIdentName: '[name]-[local]-[hash:base64:5]',
-                            // CSS Nano http://cssnano.co/
-                            minimize: false,
-                        },
-                    },
-
-                    // To use autoprefixer
-                    /*{
-                      loader: 'postcss-loader',
-                      options: {
-                        sourceMap: true,
-                      },
-                    },*/
-
-                    // Compile Sass to CSS
-                    // https://github.com/webpack-contrib/sass-loader
-                    // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
-                    /*{
-                      test: /\.(scss|sass)$/,
-                      loader: 'sass-loader',
-                      options: {
-                        sourceMap: true,
-                      },
-                    },*/
-                ],
-            },
-            {
-                test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file-loader',
-            }
-        ],
-    },
+    return undefined;
 };

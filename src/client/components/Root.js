@@ -5,8 +5,8 @@ import configureStore from '../redux';
 import App from './App';
 import history from '../history';
 import { arrayToMap } from '../utils';
-import { ArticleModel, ReducerRecord as ReduceRecordArticles } from "../ducks/articles";
-import { ReducerRecord as ReduceRecordFilters } from "../ducks/filters";
+import { ArticleModel, ReducerRecord as ReduceRecordArticles } from '../ducks/articles';
+import { ReducerRecord as ReduceRecordFilters } from '../ducks/filters';
 
 // Grab the state from a global variable injected into the server-generated HTML
 const preloadedState = window.PRELOADED_STATE;
@@ -35,8 +35,8 @@ class Root extends Component {
                     <App/>
                 </Router>
             </Provider>
-        )
+        );
     }
 }
 
-export default Root
+export default Root;

@@ -15,7 +15,7 @@ class Start extends Component {
                 <BlogListFiltrationPanel/>
                 <BlogList/>
             </PageContainer>
-        )
+        );
     }
 }
 

@@ -7,15 +7,15 @@ class BlogListFiltrationPanel extends Component {
     sortByAuthorAlphabet = () => {
         const { byAuthorAlphabetState: { direction } } = this.props;
 
-        if ( direction === 1 ){
+        if (direction === 1) {
             this.props.filterByAuthorAlphabet({
                 isSorted: true,
-                direction: -1
+                direction: -1,
             });
-        } else if ( direction === -1 ) {
+        } else if (direction === -1) {
             this.props.filterByAuthorAlphabet({
                 isSorted: true,
-                direction: 1
+                direction: 1,
             });
         }
     };
@@ -23,7 +23,7 @@ class BlogListFiltrationPanel extends Component {
     sortReset = () => {
         this.props.filterByAuthorAlphabet({
             isSorted: false,
-            direction: 1
+            direction: 1,
         });
     };
 
@@ -38,8 +38,8 @@ class BlogListFiltrationPanel extends Component {
                     {
                         isSorted
                             ? direction === 1
-                                ? <span style={{color: 'blue'}}>z-a</span>
-                                : <span style={{color: 'blue'}}>a-z</span>
+                                ? <span style={{ color: 'blue' }}>z-a</span>
+                                : <span style={{ color: 'blue' }}>a-z</span>
                             : <span>a-z</span>
                     }
                 </span>
@@ -53,10 +53,8 @@ BlogListFiltrationPanel.propTypes = {};
 BlogListFiltrationPanel.defaultProps = {};
 
 export default connect(
-    (state) => {
-        return {
-            byAuthorAlphabetState: state.filters.byAuthorAlphabet,
-        };
-    },
-    { filterByAuthorAlphabet }
+    state => ({
+        byAuthorAlphabetState: state.filters.byAuthorAlphabet,
+    }),
+    { filterByAuthorAlphabet },
 )(BlogListFiltrationPanel);

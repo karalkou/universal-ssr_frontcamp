@@ -4,7 +4,7 @@ import { arrayToMap } from '../utils';
 // import { createSelector } from 'reselect';
 import { call, put, takeEvery } from 'redux-saga/effects';
 // import { replace } from 'react-router-redux';
-import { generateId } from "../utils";
+import { generateId } from '../utils';
 
 /**
  * Constants
@@ -22,25 +22,25 @@ export const REMOVE_ARTICLE = `${prefix}/REMOVE_ARTICLE`;
  * */
 const mockResponse = [
     {
-        createdAt: "2018-02-03T04:41:45.586Z",
-        updatedAt: "2018-02-03T04:41:45.586Z",
-        id: "5a753d89aa7586161cef2403",
+        createdAt: '2018-02-03T04:41:45.586Z',
+        updatedAt: '2018-02-03T04:41:45.586Z',
+        id: '5a753d89aa7586161cef2403',
         title: "Zhabinsky's birthday note",
-        author: "Yury Karalkou",
+        author: 'Yury Karalkou',
         views: 1,
         body: "Zhabinsky's birthday was on 28.01.2018",
-        __v: 0
+        __v: 0,
     },
     {
-        createdAt: "2018-02-03T04:45:24.589Z",
-        updatedAt: "2018-02-03T04:45:24.589Z",
-        id: "5a753e64ea59510b0ca6271c",
-        title: "Documents (aka Objects)",
-        author: "MLab",
+        createdAt: '2018-02-03T04:45:24.589Z',
+        updatedAt: '2018-02-03T04:45:24.589Z',
+        id: '5a753e64ea59510b0ca6271c',
+        title: 'Documents (aka Objects)',
+        author: 'MLab',
         views: 100500,
-        body: "From the \"Documents\" tab you can browse and search for objects in this collection. All standard query constructs are supported except for map/reduce queries. To use map/reduce, use the MongoDB shell (note that temporary result collections will be viewable in mLab). You can also add, edit, and delete individual documents from here. Bulk collection updates are not yet supported in this UI (although they are supported in the shell).",
-        __v: 0
-    }
+        body: 'From the "Documents" tab you can browse and search for objects in this collection. All standard query constructs are supported except for map/reduce queries. To use map/reduce, use the MongoDB shell (note that temporary result collections will be viewable in mLab). You can also add, edit, and delete individual documents from here. Bulk collection updates are not yet supported in this UI (although they are supported in the shell).',
+        __v: 0,
+    },
 ];
 
 export const ArticleModel = Record({
@@ -51,11 +51,11 @@ export const ArticleModel = Record({
     author: null,
     views: null,
     body: null,
-    __v: null
+    __v: null,
 });
 
 export const ReducerRecord = Record({
-    entities: new Map({})
+    entities: new Map({}),
 });
 
 export default function reducer(state = new ReducerRecord(), action) {
@@ -90,37 +90,37 @@ export default function reducer(state = new ReducerRecord(), action) {
 export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
-    }
+    };
 }
 
 export function addArticle(formStateObj) {
     return {
         type: ADD_ARTICLE_REQUEST,
-        payload: formStateObj
-    }
+        payload: formStateObj,
+    };
 }
 
 export function removeArticle(id) {
     return {
         type: REMOVE_ARTICLE,
-        payload: { id }
-    }
+        payload: { id },
+    };
 }
 
 /**
  * Sagas
- **/
-export function * addArcticleSaga(action) {
+ * */
+export function* addArcticleSaga(action) {
     const id = yield call(generateId);
 
     const effect = put({
         type: ADD_ARTICLE,
-        payload: { id, ...action.payload }
+        payload: { id, ...action.payload },
     });
 
     yield effect;
 }
 
-export function * saga() {
-    yield takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga)
+export function* saga() {
+    yield takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga);
 }

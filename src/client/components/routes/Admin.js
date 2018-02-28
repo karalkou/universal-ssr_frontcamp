@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Admin extends Component {
     static propTypes = {
@@ -10,8 +10,8 @@ class Admin extends Component {
             <div>
                 <h2>Admin Page</h2>
             </div>
-        )
+        );
     }
 }
 
-export default Admin
+export default Admin;

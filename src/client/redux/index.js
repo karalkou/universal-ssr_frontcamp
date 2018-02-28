@@ -24,9 +24,7 @@ if (typeof window !== 'undefined') {
     currentAppMiddlewares.push(logger);
 }
 
-const enhancer = composeEnhancers(
-    applyMiddleware(...currentAppMiddlewares)
-);
+const enhancer = composeEnhancers(applyMiddleware(...currentAppMiddlewares));
 
 export default (initialState) => {
     const store = createStore(reducer, initialState, enhancer);
