@@ -6,9 +6,9 @@
     "scripts": {
         "lint-js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
         "lint": "yarn run lint-js --fix",
-        "dev": "webpack --env development --progress --color",
-        "start": "npm run dev && nodemon ./src/server --exec babel-node",
-        "build": "webpack --env production --progress --color"
+        "dev-client": "webpack-dev-server --env development --progress --color --hot --inline",
+        "dev-server": "nodemon ./src/server --exec babel-node",
+        "prod": "webpack --env production --progress --color"
     },
     "keywords": [
         "ssr",

@@ -37,6 +37,7 @@ const common = merge([
 module.exports = function returnConfig(env) {
     if (env === 'production') {
         return merge([
+            { mode: 'production' },
             common,
             uglifyJS(),
         ]);
@@ -44,6 +45,7 @@ module.exports = function returnConfig(env) {
 
     if (env === 'development') {
         return merge([
+            { mode: 'development' },
             common,
             // devserver(),
             styles(),
