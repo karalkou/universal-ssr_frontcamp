@@ -4,14 +4,14 @@ const merge = require('webpack-merge');
 // const devserver = require('./webpack/devserver');
 const styles = require('./webpack/styles');
 const jsConfig = require('./webpack/js');
-const uglifyJS = require('./webpack/js.uglify');
+const html = require('./webpack/html');
+const pug = require('./webpack/pug');
 const images = require('./webpack/images');
 const fonts = require('./webpack/fonts');
 
-/* const PATHS = {
-    source: path.join(__dirname, 'source'),
-    build: path.join(__dirname, 'build'),
-}; */
+const PATHS = {
+    templates: path.join(__dirname, 'src/templates'),
+};
 
 const common = merge([
     {
@@ -37,17 +37,24 @@ const common = merge([
 module.exports = function returnConfig(env) {
     if (env === 'production') {
         return merge([
-            { mode: 'production' },
+            /* { mode: 'production' }, */
+            /* {
+                optimization: {
+                    minimize: true,
+                },
+            }, */
             common,
-            uglifyJS(),
+            styles(),
         ]);
     }
 
     if (env === 'development') {
         return merge([
-            { mode: 'development' },
+            /* { mode: 'development' }, */
             common,
             // devserver(),
+            html(PATHS.templates),
+            pug(),
             styles(),
         ]);
     }
