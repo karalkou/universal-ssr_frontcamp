@@ -2,14 +2,13 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { toJS } from 'immutable';
 
 import configureStore from '../client/redux';
 import App from '../client/components/App';
 
 import saga from './../client/redux/saga';
 
-function renderFullPage(html, preloadedState) {
+/* function renderFullPage(html, preloadedState) {
     return `
         <!doctype html>
         <html>
@@ -18,7 +17,12 @@ function renderFullPage(html, preloadedState) {
                 <title>React Server Side Rendering</title>
                 <style>
                     html, body {height: 100%; margin: 0; padding: 0;}
-                    #root {height: 100%; box-sizing: border-box; font-family: 'Open Sans', 'Arial', sans-serif; background-color: #e6ecf0;}
+                    #root {
+                        height: 100%;
+                        box-sizing: border-box;
+                        font-family: 'Open Sans', 'Arial', sans-serif;
+                        background-color: #e6ecf0;
+                    }
                 </style>
         </head>
         <body>
@@ -32,7 +36,7 @@ function renderFullPage(html, preloadedState) {
         </body>
         </html>
     `;
-}
+} */
 
 function handleRender(req, res) {
     const store = configureStore({});
@@ -65,7 +69,8 @@ function handleRender(req, res) {
             filters: filters.toJS(),
         };
 
-        return res.send(renderFullPage(html, preloadedState));
+        // return res.send(renderFullPage(html, preloadedState));
+        return res.render('layout', { html, preloadedState });
     });
 
     // Do first render, starts initial actions.
