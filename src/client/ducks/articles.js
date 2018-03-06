@@ -1,9 +1,10 @@
-import { appName } from '../config';
-import { Map, Record } from 'immutable';
-import { arrayToMap } from '../utils';
 // import { createSelector } from 'reselect';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, apply, put, takeEvery, all } from 'redux-saga/effects';
 // import { replace } from 'react-router-redux';
+import { Map, Record } from 'immutable';
+import fetch from 'isomorphic-fetch';
+import { appName } from '../config';
+import { arrayToMap } from '../utils';
 import { generateId } from '../utils';
 
 /**
@@ -12,7 +13,9 @@ import { generateId } from '../utils';
 export const moduleName = 'articles';
 const prefix = `${appName}/${moduleName}`;
 
-export const LOAD_ALL_ARTICLES = `${prefix}/LOAD_ALL_ARTICLES`;
+export const LOAD_ALL_ARTICLES_REQUEST = `${prefix}/LOAD_ALL_ARTICLES_REQUEST`;
+export const LOAD_ALL_ARTICLES_START = `${prefix}/LOAD_ALL_ARTICLES_START`;
+export const LOAD_ALL_ARTICLES_SUCCESS = `${prefix}/LOAD_ALL_ARTICLES_SUCCESS`;
 export const ADD_ARTICLE_REQUEST = `${prefix}/ADD_ARTICLE_REQUEST`;
 export const ADD_ARTICLE = `${prefix}/ADD_ARTICLE`;
 export const REMOVE_ARTICLE = `${prefix}/REMOVE_ARTICLE`;
@@ -55,6 +58,8 @@ export const ArticleModel = Record({
 });
 
 export const ReducerRecord = Record({
+    loading: false,
+    loaded: false,
     entities: new Map({}),
 });
 
@@ -62,8 +67,13 @@ export default function reducer(state = new ReducerRecord(), action) {
     const { type, payload } = action;
 
     switch (type) {
-        case LOAD_ALL_ARTICLES:
+        case LOAD_ALL_ARTICLES_START:
+            return state.set('loading', true);
+
+        case LOAD_ALL_ARTICLES_SUCCESS:
             return state
+                .set('loading', false)
+                .set('loaded', true)
                 .set('entities', arrayToMap(mockResponse, ArticleModel));
 
         case ADD_ARTICLE:
@@ -89,7 +99,7 @@ export default function reducer(state = new ReducerRecord(), action) {
  * */
 export function loadAllArticles() {
     return {
-        type: LOAD_ALL_ARTICLES,
+        type: LOAD_ALL_ARTICLES_REQUEST,
     };
 }
 
@@ -110,6 +120,27 @@ export function removeArticle(id) {
 /**
  * Sagas
  * */
+export function* fetchAllSaga() {
+    yield put({
+        type: LOAD_ALL_ARTICLES_START
+    });
+
+    const response = yield call(fetch, '/blogs');
+
+    console.log('***response: ', response);
+
+    const text = yield apply(response, response.text);
+    console.log('***text: ', text);
+    console.log('***JSON.parse(text): ', JSON.parse(text));
+    // const data = yield apply(response, response.json);
+    // console.log('***data: ', data);
+
+    yield put({
+        type: LOAD_ALL_ARTICLES_SUCCESS,
+        payload: JSON.parse(text)
+    })
+}
+
 export function* addArcticleSaga(action) {
     const id = yield call(generateId);
 
@@ -122,5 +153,8 @@ export function* addArcticleSaga(action) {
 }
 
 export function* saga() {
-    yield takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga);
+    yield all([
+        takeEvery(LOAD_ALL_ARTICLES_REQUEST, fetchAllSaga),
+        takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga)
+    ]);
 }

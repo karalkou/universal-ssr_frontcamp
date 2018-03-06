@@ -7,3 +7,10 @@ To DO:
 5. Add requests to API (difficulties with ImmutableJS and SSR)
 6. Add authentication
 7. Add tests
+
+---
+
+README:
+1. This repo send api requests to server from previous node.js
+homework
+2. 
