@@ -6,6 +6,7 @@ const styles = require('./webpack/styles');
 const jsConfig = require('./webpack/js');
 const html = require('./webpack/html');
 const pug = require('./webpack/pug');
+const devserver = require('./webpack/devserver');
 const images = require('./webpack/images');
 const fonts = require('./webpack/fonts');
 
@@ -52,9 +53,9 @@ module.exports = function returnConfig(env) {
         return merge([
             /* { mode: 'development' }, */
             common,
-            // devserver(),
             html(PATHS.templates),
             pug(),
+            devserver(),
             styles(),
         ]);
     }

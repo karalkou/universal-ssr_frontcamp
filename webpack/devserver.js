@@ -1,8 +1,11 @@
 module.exports = function returnDevServerConfig() {
     return {
         devServer: {
-            stats: 'errors-only',
-            port: 9000,
+            proxy: [{
+                path: '/blogs',
+                target: 'http://localhost:8000' // port of mock server
+            }],
+            historyApiFallback: true
         },
     };
 };
