@@ -52,6 +52,7 @@
     "dependencies": {
         "babel-polyfill": "^6.26.0",
         "bemto-components": "^1.7.0",
+        "email-validator": "^1.1.1",
         "express": "^4.16.2",
         "history": "^4.7.2",
         "immutable": "^3.8.2",
@@ -63,6 +64,7 @@
         "react-router-dom": "^4.2.2",
         "react-router-redux": "^5.0.0-alpha.9",
         "redux": "^3.7.2",
+        "redux-form": "^7.3.0",
         "redux-logger": "^3.0.6",
         "redux-saga": "^0.16.0",
         "styled-components": "^3.1.6",
