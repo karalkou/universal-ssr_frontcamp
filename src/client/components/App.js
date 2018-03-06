@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import StartPage from './routes/Start';
 import AdminPage from './routes/Admin';
+// import AuthPage from './routes/Auth';
 
 class App extends Component {
     static propTypes = {};
@@ -16,6 +17,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={StartPage}/>
                     <Route path="/admin" component={AdminPage}/>
+                    {/* <Route path = '/auth' component = {AuthPage}/> */}
                 </Switch>
             </div>
         );
