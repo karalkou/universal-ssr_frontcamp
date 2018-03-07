@@ -70,7 +70,10 @@ function handleRender(req, res) {
         };
 
         // return res.send(renderFullPage(html, preloadedState));
-        return res.render('layout', { html, preloadedState });
+        return res.render('layout', {
+            html: html,
+            preloadedState: JSON.stringify(preloadedState).replace(/</g, '\\\\\u003c')
+        });
     });
 
     // Do first render, starts initial actions.
