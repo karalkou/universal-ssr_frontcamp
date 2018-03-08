@@ -94,7 +94,7 @@ export const signInSaga = function* () {
                 headers,
                 body: `username=${action.payload.email}&password=${action.payload.password}`,
             };
-            const response = yield call(fetch, '/login', myInit);
+            const response = yield call(fetch, '/api/login', myInit);
             const data = yield apply(response, response.json);
             console.log('***data: ', data);
 
