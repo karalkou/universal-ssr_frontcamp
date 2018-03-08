@@ -73,8 +73,7 @@ export function signIn(email, password) {
  * Sagas
  */
 
-export function* signUpSaga() {
-}
+export function* signUpSaga() {}
 
 export const signInSaga = function* () {
     console.log('*** signIn saga');
@@ -84,19 +83,20 @@ export const signInSaga = function* () {
 
         try {
             console.log('*** before call /login');
+            const headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded',
+            });
+
             const myInit = {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'default',
+                headers,
                 body: `username=${action.payload.email}&password=${action.payload.password}`,
             };
             const response = yield call(fetch, '/login', myInit);
-
-            console.log('***response: ', response);
-
-            const text = yield apply(response, response.json);
-            console.log('***text: ', text);
-            // console.log('***JSON.parse(text): ', JSON.parse(text));
+            const data = yield apply(response, response.json);
+            console.log('***data: ', data);
 
         } catch (error) {
             yield put({
