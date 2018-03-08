@@ -1,7 +1,8 @@
-import { appName } from '../config';
 import { Record } from 'immutable';
 import { createSelector } from 'reselect';
-import { call, put, all, take } from 'redux-saga/effects';
+import { call, apply, put, all, take } from 'redux-saga/effects';
+import fetch from 'isomorphic-fetch';
+import { appName } from '../config';
 
 /**
  * Constants
@@ -25,11 +26,11 @@ export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`;
 export const ReducerRecord = Record({
     user: null,
     loading: false,
-    error: null
+    error: null,
 });
 
 export default function reducer(state = new ReducerRecord(), action) {
-    const {type, payload} = action;
+    const { type, payload } = action;
 
     switch (type) {
         case SIGN_UP_START:
@@ -41,14 +42,13 @@ export default function reducer(state = new ReducerRecord(), action) {
                 .set('loading', false);
 
         default:
-            return state
+            return state;
     }
 }
 
 /**
  * Selectors
  * */
-
 export const stateSelector = state => state[moduleName];
 export const userSelector = createSelector(stateSelector, state => state.user);
 
@@ -58,30 +58,58 @@ export const userSelector = createSelector(stateSelector, state => state.user);
 export function signUp(email, password) {
     return {
         type: SIGN_UP_START,
-        payload: {email, password}
-    }
+        payload: { email, password },
+    };
 }
 
 export function signIn(email, password) {
     return {
         type: SIGN_IN_REQUEST,
-        payload: {email, password}
-    }
+        payload: { email, password },
+    };
 }
 
 /**
  * Sagas
- **/
+ */
 
 export function* signUpSaga() {
 }
 
 export const signInSaga = function* () {
+    console.log('*** signIn saga');
+
+    while (true) {
+        const action = yield take(SIGN_IN_REQUEST);
+
+        try {
+            console.log('*** before call /login');
+            const myInit = {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'default',
+                body: `username=${action.payload.email}&password=${action.payload.password}`,
+            };
+            const response = yield call(fetch, '/login', myInit);
+
+            console.log('***response: ', response);
+
+            const text = yield apply(response, response.json);
+            console.log('***text: ', text);
+            // console.log('***JSON.parse(text): ', JSON.parse(text));
+
+        } catch (error) {
+            yield put({
+                type: SIGN_IN_ERROR,
+                payload: { error },
+            });
+        }
+    }
 };
 
 export function* saga() {
     yield all([
         signUpSaga(),
         signInSaga(),
-    ])
+    ]);
 }
