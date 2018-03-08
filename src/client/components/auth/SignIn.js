@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 
 class SignIn extends Component {
-    static propTypes = {};
-
     render() {
         return (
             <div>
                 <h3>Sign In</h3>
                 <form onSubmit={this.props.handleSubmit}>
                     <div>
-                        email: <Field name='email' component='input' type='text'/>
+                        email: <Field name="email" component="input" type="text"/>
                     </div>
                     <div>
-                        password: <Field name='password' component='input' type='password'/>
+                        password: <Field name="password" component="input" type="password"/>
                     </div>
                     <div>
-                        <input type='submit'/>
+                        <input type="submit"/>
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }
 
+SignIn.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+};
+
 export default reduxForm({
-    form: 'auth'
-})(SignIn)
+    form: 'auth',
+})(SignIn);
