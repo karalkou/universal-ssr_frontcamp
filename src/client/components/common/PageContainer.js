@@ -20,9 +20,10 @@ export default PageContainer;
 
 const PageContainerStyled = styled(bemto({}))`
 width: 100%;
+height: 100%;
 max-width: 960px;
 margin: 0 auto;
-padding: 15px 0;
+background-color: #e6ecf0;
 
 @media (max-width: 960px) {
     background: lightgoldenrodyellow;

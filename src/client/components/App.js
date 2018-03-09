@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
+import PageContainer from './common/PageContainer';
 import ProtectedRoute from './common/ProtectedRoute';
 import StartPage from './routes/Start';
 import AdminPage from './routes/Admin';
@@ -10,7 +11,7 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <PageContainer>
                 <ul style={{ margin: 0, padding: 0 }}>
                     <li><NavLink exact to="/" activeStyle={{ color: 'red' }}>start page</NavLink></li>
                     <li><NavLink exact to="/admin" activeStyle={{ color: 'red' }}>admin page</NavLink></li>
@@ -19,7 +20,7 @@ class App extends Component {
                 <Route exact path="/" component={StartPage} />
                 <ProtectedRoute path="/admin" component={AdminPage} />
                 <Route path = "/auth" component = {AuthPage}/>
-            </div>
+            </PageContainer>
         );
     }
 }
