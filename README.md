@@ -12,8 +12,10 @@ To DO:
 10. Handle SSR routing
 11. Handle SSR requests to API (difficulties with ImmutableJS and SSR)
 12. Add tests
-13. Deliver files for dev/prod
-14. Add styles
+13. How to handle sessions? [same question on reddit](https://www.reddit.com/r/node/comments/6cb1u3/authentication_with_express_react/) and [stackoverflow](https://stackoverflow.com/questions/47956972/handling-sessions-in-react-with-express-js-backend-api)
+13. Proxify requests to api on production ?
+14. Deliver files for dev/prod
+15. Add styles
 
 ---
 
