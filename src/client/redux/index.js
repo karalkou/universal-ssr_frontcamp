@@ -1,9 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 import logger from 'redux-logger';
 import createSagaMiddleware, { END } from 'redux-saga';
 import reducer from './reducer';
-import history from '../history';
 import saga from './saga';
 
 export const sagaMiddleware = createSagaMiddleware();
@@ -18,7 +16,6 @@ const composeEnhancers =
 
 const currentAppMiddlewares = [];
 
-currentAppMiddlewares.push(routerMiddleware(history));
 currentAppMiddlewares.push(sagaMiddleware);
 
 if (typeof window !== 'undefined') {
