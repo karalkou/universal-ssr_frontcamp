@@ -8,36 +8,6 @@ import App from '../client/components/App';
 
 import saga from './../client/redux/saga';
 
-/* function renderFullPage(html, preloadedState) {
-    return `
-        <!doctype html>
-        <html>
-        <head>
-            <meta charset=utf-8>
-                <title>React Server Side Rendering</title>
-                <style>
-                    html, body {height: 100%; margin: 0; padding: 0;}
-                    #root {
-                        height: 100%;
-                        box-sizing: border-box;
-                        font-family: 'Open Sans', 'Arial', sans-serif;
-                        background-color: #e6ecf0;
-                    }
-                </style>
-        </head>
-        <body>
-        <div id="root">${html}</div>
-        <script>
-            // WARNING: See the following for security issues around embedding JSON in HTML:
-            // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-            window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\\\\u003c')}
-        </script>
-        <script src="/js/bundle.js"></script>
-        </body>
-        </html>
-    `;
-} */
-
 function handleRender(req, res) {
     const store = configureStore({});
 
@@ -45,7 +15,7 @@ function handleRender(req, res) {
     const app = (
         <Provider store={store}>
             <StaticRouter location={req.url} context={context}>
-                <App name="World"/>
+                <App />
             </StaticRouter>
         </Provider>
     );
@@ -69,8 +39,10 @@ function handleRender(req, res) {
             filters: filters.toJS(),
         };
 
-        // return res.send(renderFullPage(html, preloadedState));
-        return res.render('layout', { html, preloadedState });
+        return res.render('layout', {
+            html,
+            preloadedState: JSON.stringify(preloadedState).replace(/</g, '\\\\\u003c'),
+        });
     });
 
     // Do first render, starts initial actions.

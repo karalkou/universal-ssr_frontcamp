@@ -4,15 +4,13 @@ html
         title= title
         style
             | html, body {height: 100%; margin: 0; padding: 0;}
-            | #root {height: 100%; box-sizing: border-box; font-family: 'Open Sans', 'Arial', sans-serif; background-color: white;}
+            | #root {height: 100%; box-sizing: border-box; font-family: 'Open Sans', 'Arial', sans-serif;}
         block head-stuff
     body
+        div#root
+            | !{html}
         if ( html && preloadedState )
-            div#root
-                #{html}
             script.
-                window.PRELOADED_STATE = JSON.stringify(preloadedState).replace(/</g, '\\\\\u003c')
+                window.PRELOADED_STATE = !{preloadedState}
             script(src="/js/bundle.js")
-        else
-            div#root
         block content
