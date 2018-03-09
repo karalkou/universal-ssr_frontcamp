@@ -4,8 +4,7 @@ import { call, apply, put, takeEvery, all } from 'redux-saga/effects';
 import { Map, Record } from 'immutable';
 import fetch from 'isomorphic-fetch';
 import { appName } from '../config';
-import { arrayToMap } from '../utils';
-import { generateId } from '../utils';
+import { arrayToMap, generateId } from '../utils';
 
 /**
  * Constants
@@ -77,7 +76,6 @@ export default function reducer(state = new ReducerRecord(), action) {
                 .set('entities', arrayToMap(mockResponse, ArticleModel));
 
         case ADD_ARTICLE:
-            console.log('payload: ', payload);
             return state
                 .setIn(['entities', payload.id], new ArticleModel(payload));
 
@@ -125,20 +123,14 @@ export function* fetchAllSaga() {
         type: LOAD_ALL_ARTICLES_START
     });
 
-    const response = yield call(fetch, '/blogs');
+    const response = yield call(fetch, '/api/blogs');
 
-    console.log('***response: ', response);
-
-    const text = yield apply(response, response.text);
-    console.log('***text: ', text);
-    console.log('***JSON.parse(text): ', JSON.parse(text));
-    // const data = yield apply(response, response.json);
-    // console.log('***data: ', data);
+    const data = yield apply(response, response.text);
 
     yield put({
         type: LOAD_ALL_ARTICLES_SUCCESS,
-        payload: JSON.parse(text)
-    })
+        payload: JSON.parse(data),
+    });
 }
 
 export function* addArcticleSaga(action) {
