@@ -75,7 +75,48 @@ export function signIn(email, password) {
  * Sagas
  */
 
-export function* signUpSaga() {}
+export function* signUpSaga() {
+    console.log('*** signUp saga');
+
+    while (true) {
+        const action = yield take(SIGN_UP_START);
+
+        try {
+            console.log('*** before call /api/register');
+            const headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded',
+            });
+
+            const myInit = {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'default',
+                headers,
+                body: `username=${action.payload.email}&password=${action.payload.password}`,
+            };
+            const response = yield call(fetch, '/api/register', myInit);
+            const data = yield apply(response, response.json);
+
+            if (data.success) {
+                yield put({
+                    type: SIGN_IN_SUCCESS,
+                    payload: { email: action.payload.email },
+                });
+            } else {
+                yield put({
+                    type: SIGN_OUT_SUCCESS,
+                    payload: { email: action.payload.email },
+                });
+                // yield put(replace('/auth/signin'))
+            }
+        } catch (error) {
+            yield put({
+                type: SIGN_UP_ERROR,
+                payload: { error },
+            });
+        }
+    }
+}
 
 export const signInSaga = function* () {
     console.log('*** signIn saga');
@@ -84,7 +125,7 @@ export const signInSaga = function* () {
         const action = yield take(SIGN_IN_REQUEST);
 
         try {
-            console.log('*** before call /login');
+            console.log('*** before call /api/login');
             const headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
             });
@@ -109,7 +150,7 @@ export const signInSaga = function* () {
                     type: SIGN_OUT_SUCCESS,
                     payload: { email: action.payload.email },
                 });
-                yield put(replace('/auth/signin'))
+                // yield put(replace('/auth/signin'))
             }
         } catch (error) {
             yield put({
