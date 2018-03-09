@@ -17,9 +17,11 @@ class App extends Component {
                     <li><NavLink exact to="/admin" activeStyle={{ color: 'red' }}>admin page</NavLink></li>
                     <li><NavLink exact to="/auth" activeStyle={{ color: 'red' }}>auth page</NavLink></li>
                 </ul>
-                <Route exact path="/" component={StartPage} />
-                <ProtectedRoute path="/admin" component={AdminPage} />
-                <Route path = "/auth" component = {AuthPage}/>
+                <Switch>
+                    <Route exact path="/" component={StartPage} />
+                    <ProtectedRoute path="/admin" component={AdminPage} />
+                    <Route path = "/auth" component = {AuthPage}/>
+                </Switch>
             </PageContainer>
         );
     }
