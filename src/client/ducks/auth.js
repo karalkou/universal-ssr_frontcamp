@@ -26,6 +26,7 @@ export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`;
 export const ReducerRecord = Record({
     user: null,
     loading: false,
+    authenticated: false,
     error: null,
 });
 
@@ -38,8 +39,9 @@ export default function reducer(state = new ReducerRecord(), action) {
 
         case SIGN_IN_SUCCESS:
             return state
-                .set('user', payload.user)
-                .set('loading', false);
+                .set('user', payload.email)
+                .set('loading', false)
+                .set('authenticated', true);
 
         default:
             return state;
@@ -96,8 +98,19 @@ export const signInSaga = function* () {
             };
             const response = yield call(fetch, '/api/login', myInit);
             const data = yield apply(response, response.json);
-            console.log('***data: ', data);
 
+            if (data.success) {
+                yield put({
+                    type: SIGN_IN_SUCCESS,
+                    payload: { email: action.payload.email },
+                });
+            } else {
+                yield put({
+                    type: SIGN_OUT_SUCCESS,
+                    payload: { email: action.payload.email },
+                });
+                yield put(replace('/auth/signin'))
+            }
         } catch (error) {
             yield put({
                 type: SIGN_IN_ERROR,
