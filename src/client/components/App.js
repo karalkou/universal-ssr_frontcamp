@@ -14,8 +14,8 @@ class App extends Component {
             <PageContainer>
                 <ul style={{ margin: 0, padding: 0 }}>
                     <li><NavLink exact to="/" activeStyle={{ color: 'red' }}>start page</NavLink></li>
-                    <li><NavLink exact to="/admin" activeStyle={{ color: 'red' }}>admin page</NavLink></li>
-                    <li><NavLink exact to="/auth" activeStyle={{ color: 'red' }}>auth page</NavLink></li>
+                    <li><NavLink to="/admin" activeStyle={{ color: 'red' }}>admin page</NavLink></li>
+                    <li><NavLink to="/auth" activeStyle={{ color: 'red' }}>auth page</NavLink></li>
                 </ul>
                 <Switch>
                     <Route exact path="/" component={StartPage} />
