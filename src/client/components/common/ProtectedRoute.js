@@ -7,17 +7,17 @@ class ProtectedRoute extends Component {
     static propTypes = {};
 
     render() {
-        const {component, ...rest} = this.props;
-        return <Route {...rest} render={this.renderRoute}/>
+        const { component, ...rest } = this.props;
+        return <Route {...rest} render={this.renderRoute} />;
     }
 
     renderRoute = (...args) => {
-        const {authorized} = this.props;
+        const { authorized } = this.props;
         const AuthorizedComponent = this.props.component;
-        return authorized ? <AuthorizedComponent {...args} /> : <h2>UnAuthorized</h2>
+        return authorized ? <AuthorizedComponent {...args} /> : <h2>UnAuthorized</h2>;
     }
 }
 
 export default connect(state => ({
-    authorized: !!userSelector(state)
-}), null, null, {pure: false})(ProtectedRoute)
+    authorized: !!userSelector(state),
+}), null, null, { pure: false })(ProtectedRoute);

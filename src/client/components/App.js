@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
+import ProtectedRoute from './common/ProtectedRoute';
 import StartPage from './routes/Start';
 import AdminPage from './routes/Admin';
 import AuthPage from './routes/Auth';
@@ -16,7 +17,7 @@ class App extends Component {
                     <li><NavLink exact to="/auth" activeStyle={{ color: 'red' }}>auth page</NavLink></li>
                 </ul>
                 <Route exact path="/" component={StartPage} />
-                <Route path="/admin" component={AdminPage} />
+                <ProtectedRoute path="/admin" component={AdminPage} />
                 <Route path = "/auth" component = {AuthPage}/>
             </div>
         );
