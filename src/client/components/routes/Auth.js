@@ -14,8 +14,14 @@ class AuthPage extends Component {
         return (
             <div>
                 <h2>Auth page</h2>
-                <NavLink to="/auth/signin" activeStyle={{ color: 'red' }}>sign in</NavLink>
-                <NavLink to="/auth/signup" activeStyle={{ color: 'red' }}>sign up</NavLink>
+                <ul style={{ margin: 0, padding: 0, listStyleType: 'none' }}>
+                    <li style={{ display: 'inline-block', marginRight: '15px' }}>
+                        <NavLink to="/auth/signin" activeStyle={{ color: 'red' }}>sign in</NavLink>
+                    </li>
+                    <li style={{ display: 'inline-block' }}>
+                        <NavLink to="/auth/signup" activeStyle={{ color: 'red' }}>sign up</NavLink>
+                    </li>
+                </ul>
                 <Route path="/auth/signin" render={
                     () => <SignIn onSubmit={this.handleSignIn} />
                 } />
