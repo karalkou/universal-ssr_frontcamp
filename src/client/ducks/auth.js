@@ -1,5 +1,6 @@
 import { Record } from 'immutable';
 import { createSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 import { call, apply, put, all, take } from 'redux-saga/effects';
 import fetch from 'isomorphic-fetch';
 import { appName } from '../config';
@@ -14,8 +15,8 @@ export const SIGN_UP_START = `${prefix}/SIGN_UP_START`;
 export const SIGN_UP_SUCCESS = `${prefix}/SIGN_UP_SUCCESS`;
 export const SIGN_UP_ERROR = `${prefix}/SIGN_UP_ERROR`;
 
-export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`;
 export const SIGN_IN_REQUEST = `${prefix}/SIGN_IN_REQUEST`;
+export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`;
 export const SIGN_IN_ERROR = `${prefix}/SIGN_IN_ERROR`;
 
 export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`;
@@ -107,6 +108,7 @@ export function* signInSaga() {
                     payload: { email: action.payload.email },
                 });
                 // yield put(replace('/auth/signin'))
+                browserHistory.push('/auth/signin');
             }
         } catch (error) {
             yield put({
@@ -115,7 +117,7 @@ export function* signInSaga() {
             });
         }
     }
-};
+}
 
 export function* signUpSaga() {
     console.log('*** signUp saga');
@@ -139,18 +141,21 @@ export function* signUpSaga() {
             const response = yield call(fetch, '/api/register', myInit);
             const data = yield apply(response, response.json);
             console.log('data: ', data);
-            /* if (data.success) {
+
+            if (data.success) {
                 yield put({
-                    type: SIGN_IN_SUCCESS,
-                    payload: { email: action.payload.email },
+                    type: SIGN_IN_REQUEST,
+                    payload: {
+                        email: action.payload.email,
+                        password:  action.payload.password,
+                    },
                 });
             } else {
                 yield put({
-                    type: SIGN_OUT_SUCCESS,
-                    payload: { email: action.payload.email },
+                    type: SIGN_UP_ERROR,
+                    payload: { error: data.message || 'error' },
                 });
-                // yield put(replace('/auth/signin'))
-            } */
+            }
         } catch (error) {
             yield put({
                 type: SIGN_UP_ERROR,
