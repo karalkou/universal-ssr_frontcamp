@@ -19,7 +19,9 @@ export const SIGN_IN_REQUEST = `${prefix}/SIGN_IN_REQUEST`;
 export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`;
 export const SIGN_IN_ERROR = `${prefix}/SIGN_IN_ERROR`;
 
+export const SIGN_OUT_REQUEST = `${prefix}/SIGN_OUT_REQUEST`;
 export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`;
+export const SIGN_OUT_ERROR = `${prefix}/SIGN_OUT_ERROR`;
 
 /**
  * Reducer
@@ -43,6 +45,12 @@ export default function reducer(state = new ReducerRecord(), action) {
                 .set('user', payload.email)
                 .set('loading', false)
                 .set('authenticated', true);
+
+        case SIGN_OUT_SUCCESS:
+            return state
+                .set('user', null)
+                .set('loading', false)
+                .set('authenticated', false);
 
         default:
             return state;
@@ -69,6 +77,13 @@ export function signIn(email, password) {
     return {
         type: SIGN_IN_REQUEST,
         payload: { email, password },
+    };
+}
+
+export function signOut() {
+    console.log('sign out action');
+    return {
+        type: SIGN_OUT_REQUEST,
     };
 }
 
@@ -165,11 +180,56 @@ export function* signUpSaga() {
     }
 }
 
-// function* loginSaga(apiURL){}
+export function* signOutSaga() {
+    console.log('*** signOut saga');
+
+    while (true) {
+        const action = yield take(SIGN_OUT_REQUEST);
+
+        console.log('action signOut: ', action);
+
+        /* try {
+            console.log('*** before call /api/register');
+            const headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded',
+            });
+
+            const myInit = {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'default',
+                headers,
+            };
+            const response = yield call(fetch, '/api/logout', myInit);
+            const data = yield apply(response, response.json);
+            console.log('data: ', data);
+
+            if (data.success) {
+                yield put({
+                    type: SIGN_OUT_SUCCESS,
+                    payload: { email: action.payload.email },
+                });
+            } else {
+                yield put({
+                    type: SIGN_OUT_ERROR,
+                    payload: { email: action.payload.email },
+                });
+                // yield put(replace('/auth/signin'))
+                // browserHistory.push('/auth/signin');
+            }
+        } catch (error) {
+            yield put({
+                type: SIGN_OUT_ERROR,
+                payload: { error },
+            });
+        } */
+    }
+}
 
 export function* saga() {
     yield all([
         signInSaga(),
         signUpSaga(),
+        signOutSaga(),
     ]);
 }
