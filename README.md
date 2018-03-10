@@ -6,7 +6,7 @@ To DO:
 5. ~~Add hot reload~~
 5. ~~Add requests to API~~
 6. ~~Add authentication~~
-7. Add registration
+7. ~~Add registration~~
 8. Add logout
 9. Handle routing properly
 10. Handle SSR routing
