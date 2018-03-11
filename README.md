@@ -10,14 +10,14 @@ To DO:
 8. ~~Add logout~~
 9. ~~Handle access to api's /blogs~~
 10. ~~Handle routing properly~~
-11. Add tests
-12. Handle SSR routing
-13. Handle SSR requests to API (difficulties with ImmutableJS and SSR)
-14. ~~How to handle sessions? [same question on reddit](https://www.reddit.com/r/node/comments/6cb1u3/authentication_with_express_react/) and [Handling sessions in React with Express.js backend API
-](https://stackoverflow.com/questions/47956972/handling-sessions-in-react-with-express-js-backend-api) + [fetch API with Cookie](https://stackoverflow.com/questions/34558264/fetch-api-with-cookie)~~
+11. ~~Add tests configuration~~
+12. ~~How to handle sessions? [same question on reddit](https://www.reddit.com/r/node/comments/6cb1u3/authentication_with_express_react/) and [Handling sessions in React with Express.js backend API](https://stackoverflow.com/questions/47956972/handling-sessions-in-react-with-express-js-backend-api) + [fetch API with Cookie](https://stackoverflow.com/questions/34558264/fetch-api-with-cookie)~~
+13. Handle SSR routing
+14. Handle SSR requests to API (difficulties with ImmutableJS and SSR)
 15. Proxify requests to api on production ?
-16. Deliver files for dev/prod
+16. Add more tests
 17. Add styles
+18. Deliver files for dev/prod
 
 ---
 
