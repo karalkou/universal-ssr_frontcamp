@@ -120,12 +120,25 @@ export function removeArticle(id) {
  * */
 export function* fetchAllSaga() {
     yield put({
-        type: LOAD_ALL_ARTICLES_START
+        type: LOAD_ALL_ARTICLES_START,
     });
 
-    const response = yield call(fetch, '/api/blogs');
+    const headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const myInit = {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'same-origin',
+        headers,
+    };
+
+    const response = yield call(fetch, '/api/blogs', myInit);
 
     const data = yield apply(response, response.text);
+    console.log('data from ARTICLES: ', data);
 
     yield put({
         type: LOAD_ALL_ARTICLES_SUCCESS,
