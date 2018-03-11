@@ -9,7 +9,7 @@ To DO:
 7. ~~Add registration~~
 8. ~~Add logout~~
 9. Handle access to api's /blogs
-10. Handle routing properly
+10. ~~Handle routing properly~~
 11. Handle SSR routing
 12. Handle SSR requests to API (difficulties with ImmutableJS and SSR)
 13. Add tests

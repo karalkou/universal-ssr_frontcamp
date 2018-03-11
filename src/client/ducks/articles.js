@@ -15,9 +15,12 @@ const prefix = `${appName}/${moduleName}`;
 export const LOAD_ALL_ARTICLES_REQUEST = `${prefix}/LOAD_ALL_ARTICLES_REQUEST`;
 export const LOAD_ALL_ARTICLES_START = `${prefix}/LOAD_ALL_ARTICLES_START`;
 export const LOAD_ALL_ARTICLES_SUCCESS = `${prefix}/LOAD_ALL_ARTICLES_SUCCESS`;
+
 export const ADD_ARTICLE_REQUEST = `${prefix}/ADD_ARTICLE_REQUEST`;
 export const ADD_ARTICLE = `${prefix}/ADD_ARTICLE`;
-export const REMOVE_ARTICLE = `${prefix}/REMOVE_ARTICLE`;
+
+export const REMOVE_ARTICLE_REQUEST = `${prefix}/REMOVE_ARTICLE_REQUEST`;
+export const REMOVE_ARTICLE_SUCCESS = `${prefix}/REMOVE_ARTICLE_SUCCESS`;
 
 /**
  * Reducer
@@ -87,7 +90,7 @@ export default function reducer(state = new ReducerRecord(), action) {
             return state
                 .setIn(['entities', payload._id], new ArticleModel(payload));
 
-        case REMOVE_ARTICLE:
+        case REMOVE_ARTICLE_SUCCESS:
             return state
                 .deleteIn(['entities', payload._id]);
 
@@ -118,7 +121,7 @@ export function addArticle(formStateObj) {
 
 export function removeArticle(id) {
     return {
-        type: REMOVE_ARTICLE,
+        type: REMOVE_ARTICLE_REQUEST,
         payload: { id },
     };
 }
@@ -146,6 +149,8 @@ export function* fetchAllSaga() {
     const response = yield call(fetch, '/api/blogs', myInit);
 
     const data = yield apply(response, response.json);
+
+    console.log('********** data: ', data);
 
     yield put({
         type: LOAD_ALL_ARTICLES_SUCCESS,
@@ -184,9 +189,39 @@ export function* addArcticleSaga(action) {
     yield effect;
 }
 
+export function* removeArcticleSaga(action) {
+    const { id } = action.payload;
+
+    const headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const myInit = {
+        method: 'DELETE',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+        headers,
+    };
+
+    const response = yield call(fetch, `/api/${id}`, myInit);
+
+    const data = yield apply(response, response.json);
+
+    console.log('data after blog DELETE: ', data);
+
+    const effect = put({
+        type: REMOVE_ARTICLE_SUCCESS,
+        payload: { ...action.payload },
+    });
+
+    yield effect;
+}
+
 export function* saga() {
     yield all([
         takeEvery(LOAD_ALL_ARTICLES_REQUEST, fetchAllSaga),
         takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga),
+        takeEvery(REMOVE_ARTICLE_REQUEST, removeArcticleSaga),
     ]);
 }
