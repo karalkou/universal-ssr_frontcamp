@@ -204,7 +204,7 @@ export function* removeArcticleSaga(action) {
         headers,
     };
 
-    const response = yield call(fetch, `/api/${id}`, myInit);
+    const response = yield call(fetch, `/api/blogs/${id}`, myInit);
 
     const data = yield apply(response, response.json);
 
@@ -212,7 +212,7 @@ export function* removeArcticleSaga(action) {
 
     const effect = put({
         type: REMOVE_ARTICLE_SUCCESS,
-        payload: { ...action.payload },
+        payload: { _id: id },
     });
 
     yield effect;
