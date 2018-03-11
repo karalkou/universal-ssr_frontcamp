@@ -7,6 +7,12 @@ import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
 
 class AuthPage extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.auth.authenticated && nextProps.auth.authenticated) {
+            this.props.history.push('/auth');
+        }
+    }
+
     handleSignIn = ({ email, password }) => this.props.signIn(email, password);
     handleSignUp = ({ email, password }) => this.props.signUp(email, password);
 
@@ -16,18 +22,18 @@ class AuthPage extends Component {
         return (
             <div>
                 <h2>Auth page</h2>
-                <ul style={{ margin: 0, padding: 0, listStyleType: 'none' }}>
-                    <li style={{ display: 'inline-block', marginRight: '15px' }}>
-                        {
-                            this.props.auth.authenticated
-                                ? <button onClick={this.props.signOut}>sign out</button>
-                                : <NavLink to="/auth/signin" activeStyle={{ color: 'red' }}>sign in</NavLink>
-                        }
-                    </li>
-                    <li style={{ display: 'inline-block' }}>
-                        <NavLink to="/auth/signup" activeStyle={{ color: 'red' }}>sign up</NavLink>
-                    </li>
-                </ul>
+                {
+                    this.props.auth.authenticated
+                        ? <button onClick={this.props.signOut}>sign out</button>
+                        : (<ul style={{ margin: 0, padding: 0, listStyleType: 'none' }}>
+                            <li style={{ display: 'inline-block', marginRight: '15px' }}>
+                                <NavLink to="/auth/signin" activeStyle={{ color: 'red' }}>sign in</NavLink>
+                            </li>
+                            <li style={{ display: 'inline-block' }}>
+                                <NavLink to="/auth/signup" activeStyle={{ color: 'red' }}>sign up</NavLink>
+                            </li>
+                        </ul>)
+                }
                 <Route path="/auth/signin" render={
                     () => <SignIn onSubmit={this.handleSignIn} />
                 } />
@@ -43,6 +49,7 @@ AuthPage.propTypes = {
     signIn: PropTypes.func.isRequired,
     signUp: PropTypes.func.isRequired,
     signOut: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
 };
 
