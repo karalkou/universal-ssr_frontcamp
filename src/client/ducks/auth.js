@@ -1,6 +1,5 @@
 import { Record } from 'immutable';
 import { createSelector } from 'reselect';
-import { browserHistory } from 'react-router';
 import { call, apply, put, all, take } from 'redux-saga/effects';
 import fetch from 'isomorphic-fetch';
 import { appName } from '../config';
@@ -122,8 +121,6 @@ export function* signInSaga() {
                     type: SIGN_OUT_SUCCESS,
                     payload: { email: action.payload.email },
                 });
-                // yield put(replace('/auth/signin'))
-                browserHistory.push('/auth/signin');
             }
         } catch (error) {
             yield put({
@@ -188,14 +185,14 @@ export function* signOutSaga() {
 
         console.log('action signOut: ', action);
 
-        /* try {
-            console.log('*** before call /api/register');
+        try {
+            console.log('*** before call /api/signOut');
             const headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
             });
 
             const myInit = {
-                method: 'POST',
+                method: 'GET',
                 mode: 'cors',
                 cache: 'default',
                 headers,
@@ -207,22 +204,18 @@ export function* signOutSaga() {
             if (data.success) {
                 yield put({
                     type: SIGN_OUT_SUCCESS,
-                    payload: { email: action.payload.email },
                 });
             } else {
                 yield put({
                     type: SIGN_OUT_ERROR,
-                    payload: { email: action.payload.email },
                 });
-                // yield put(replace('/auth/signin'))
-                // browserHistory.push('/auth/signin');
             }
         } catch (error) {
             yield put({
                 type: SIGN_OUT_ERROR,
                 payload: { error },
             });
-        } */
+        }
     }
 }
 
