@@ -24,9 +24,9 @@ class BlogList extends Component {
 
         const listItems = list.map(item => (
             <BlogListItem
-                key={item.id}
+                key={item._id}
                 item={item}
-                onClick={this.onClick(item.id)}
+                onClick={this.onClick(item._id)}
             />
         ));
 

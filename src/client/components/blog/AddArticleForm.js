@@ -19,10 +19,7 @@ class AddArticleForm extends Component {
 
   handleSubmit = (ev) => {
       ev.preventDefault();
-      this.props.addArticle({
-          ...this.state,
-          author: this.props.user,
-      });
+      this.props.addArticle(this.state);
 
       this.setState({
           title: '',
@@ -51,17 +48,10 @@ class AddArticleForm extends Component {
 
 AddArticleForm.propTypes = {
     addArticle: PropTypes.func.isRequired,
-    user: PropTypes.string.isRequired,
 };
 
 export default connect(
-    (state) => {
-        const { auth } = state;
-
-        return {
-            user: auth.user,
-        };
-    },
+    null,
     { addArticle },
 )(AddArticleForm);
 

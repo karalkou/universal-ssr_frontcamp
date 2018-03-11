@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 
 export function arrayToMap(arr, Model) {
     return arr.reduce(
-        (acc, entity) => acc.set(entity.id, Model ? new Model(entity) : entity),
+        (acc, entity) => acc.set(entity._id, Model ? new Model(entity) : entity),
         new Map({}),
     );
 }

@@ -1,10 +1,10 @@
 // import { createSelector } from 'reselect';
-import { call, apply, put, takeEvery, all } from 'redux-saga/effects';
-// import { replace } from 'react-router-redux';
+import { call, apply, put, select, takeEvery, all } from 'redux-saga/effects';
 import { Map, Record } from 'immutable';
 import fetch from 'isomorphic-fetch';
 import { appName } from '../config';
-import { arrayToMap, generateId } from '../utils';
+import { arrayToMap } from '../utils';
+import { userSelector } from './auth';
 
 /**
  * Constants
@@ -22,11 +22,11 @@ export const REMOVE_ARTICLE = `${prefix}/REMOVE_ARTICLE`;
 /**
  * Reducer
  * */
-const mockResponse = [
+/* const mockResponse = [
     {
         createdAt: '2018-02-03T04:41:45.586Z',
         updatedAt: '2018-02-03T04:41:45.586Z',
-        id: '5a753d89aa7586161cef2403',
+        _id: '5a753d89aa7586161cef2403',
         title: "Zhabinsky's birthday note",
         author: 'Yury Karalkou',
         views: 1,
@@ -36,19 +36,27 @@ const mockResponse = [
     {
         createdAt: '2018-02-03T04:45:24.589Z',
         updatedAt: '2018-02-03T04:45:24.589Z',
-        id: '5a753e64ea59510b0ca6271c',
+        _id: '5a753e64ea59510b0ca6271c',
         title: 'Documents (aka Objects)',
         author: 'MLab',
         views: 100500,
-        body: 'From the "Documents" tab you can browse and search for objects in this collection. All standard query constructs are supported except for map/reduce queries. To use map/reduce, use the MongoDB shell (note that temporary result collections will be viewable in mLab). You can also add, edit, and delete individual documents from here. Bulk collection updates are not yet supported in this UI (although they are supported in the shell).',
+        body: 'From the "Documents" tab you can browse and ' +
+        'search for objects in this collection. All standard ' +
+        'query constructs are supported except for map/reduce ' +
+        'queries. To use map/reduce, use the MongoDB shell ' +
+        '(note that temporary result collections will be ' +
+        'viewable in mLab). You can also add, edit, and ' +
+        'delete individual documents from here. Bulk collection ' +
+        'updates are not yet supported in this UI (although ' +
+        'they are supported in the shell).',
         __v: 0,
     },
-];
+]; */
 
 export const ArticleModel = Record({
     createdAt: null,
     updatedAt: null,
-    id: null,
+    _id: null,
     title: null,
     author: null,
     views: null,
@@ -73,15 +81,15 @@ export default function reducer(state = new ReducerRecord(), action) {
             return state
                 .set('loading', false)
                 .set('loaded', true)
-                .set('entities', arrayToMap(mockResponse, ArticleModel));
+                .set('entities', arrayToMap(payload.data, ArticleModel));
 
         case ADD_ARTICLE:
             return state
-                .setIn(['entities', payload.id], new ArticleModel(payload));
+                .setIn(['entities', payload._id], new ArticleModel(payload));
 
         case REMOVE_ARTICLE:
             return state
-                .deleteIn(['entities', payload.id]);
+                .deleteIn(['entities', payload._id]);
 
         default:
             return state;
@@ -141,12 +149,13 @@ export function* fetchAllSaga() {
 
     yield put({
         type: LOAD_ALL_ARTICLES_SUCCESS,
-        payload: data,
+        payload: { data },
     });
 }
 
 export function* addArcticleSaga(action) {
-    // const id = yield call(generateId);
+    const { title, body } = action.payload;
+    const author = yield select(userSelector);
 
     const headers = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -158,6 +167,7 @@ export function* addArcticleSaga(action) {
         cache: 'default',
         credentials: 'include',
         headers,
+        body: `title=${title}&author=${author}&body=${body}`,
     };
 
     const response = yield call(fetch, '/api/blogs', myInit);
@@ -168,7 +178,7 @@ export function* addArcticleSaga(action) {
 
     const effect = put({
         type: ADD_ARTICLE,
-        payload: { id: data._id, ...action.payload },
+        payload: { ...data },
     });
 
     yield effect;

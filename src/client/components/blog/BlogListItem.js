@@ -7,7 +7,7 @@ class BlogListItem extends Component {
     render() {
         const {
             item: {
-                title, body, author, id,
+                title, body, author, _id,
             }, onClick,
         } = this.props;
 
