@@ -19,7 +19,10 @@ class AddArticleForm extends Component {
 
   handleSubmit = (ev) => {
       ev.preventDefault();
-      this.props.addArticle({ ...this.state, author: this.props.user });
+      this.props.addArticle({
+          ...this.state,
+          author: this.props.user,
+      });
 
       this.setState({
           title: '',
