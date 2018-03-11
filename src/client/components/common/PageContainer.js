@@ -19,9 +19,11 @@ PageContainer.defaultProps = {};
 export default PageContainer;
 
 const PageContainerStyled = styled(bemto({}))`
+box-sizing: border-box;
 width: 100%;
-height: 100%;
+min-height: 100%;
 max-width: 960px;
+padding: 20px 15px;
 margin: 0 auto;
 background-color: #e6ecf0;
 
