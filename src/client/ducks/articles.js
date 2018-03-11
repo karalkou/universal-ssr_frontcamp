@@ -131,27 +131,44 @@ export function* fetchAllSaga() {
         method: 'GET',
         mode: 'cors',
         cache: 'default',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers,
     };
 
     const response = yield call(fetch, '/api/blogs', myInit);
 
-    const data = yield apply(response, response.text);
-    console.log('data from ARTICLES: ', data);
+    const data = yield apply(response, response.json);
 
     yield put({
         type: LOAD_ALL_ARTICLES_SUCCESS,
-        payload: JSON.parse(data),
+        payload: data,
     });
 }
 
 export function* addArcticleSaga(action) {
-    const id = yield call(generateId);
+    // const id = yield call(generateId);
+
+    const headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const myInit = {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+        headers,
+    };
+
+    const response = yield call(fetch, '/api/blogs', myInit);
+
+    const data = yield apply(response, response.json);
+
+    console.log('data after blog PUT: ', data);
 
     const effect = put({
         type: ADD_ARTICLE,
-        payload: { id, ...action.payload },
+        payload: { id: data._id, ...action.payload },
     });
 
     yield effect;

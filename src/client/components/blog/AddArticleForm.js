@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
@@ -19,7 +19,7 @@ class AddArticleForm extends Component {
 
   handleSubmit = (ev) => {
       ev.preventDefault();
-      this.props.addArticle(this.state);
+      this.props.addArticle({ ...this.state, author: this.props.user });
 
       this.setState({
           title: '',
@@ -46,11 +46,19 @@ class AddArticleForm extends Component {
   }
 }
 
-AddArticleForm.propTypes = {};
-AddArticleForm.defaultProps = {};
+AddArticleForm.propTypes = {
+    addArticle: PropTypes.func.isRequired,
+    user: PropTypes.string.isRequired,
+};
 
 export default connect(
-    null,
+    (state) => {
+        const { auth } = state;
+
+        return {
+            user: auth.user,
+        };
+    },
     { addArticle },
 )(AddArticleForm);
 
