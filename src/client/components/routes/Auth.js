@@ -17,8 +17,6 @@ class AuthPage extends Component {
     handleSignUp = ({ email, password }) => this.props.signUp(email, password);
 
     render() {
-        console.log('this.props: ', this.props);
-
         return (
             <div>
                 <h2>Auth page</h2>
