@@ -23,5 +23,5 @@ To DO:
 
 ### NB!
 1. This repo sends api requests to server from previous node.js
-homework
+homework (branch-for-react-ht2)
 2. Usage of React-Router-Redux has been stopped cause of the problems during SSR (https://github.com/ReactTraining/react-router/issues/4892)
