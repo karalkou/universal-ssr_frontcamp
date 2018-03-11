@@ -160,6 +160,6 @@ export function* addArcticleSaga(action) {
 export function* saga() {
     yield all([
         takeEvery(LOAD_ALL_ARTICLES_REQUEST, fetchAllSaga),
-        takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga)
+        takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga),
     ]);
 }
