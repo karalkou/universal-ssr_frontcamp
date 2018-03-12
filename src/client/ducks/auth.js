@@ -198,6 +198,8 @@ export function* signOutSaga() {
                 headers,
             };
             const response = yield call(fetch, '/api/logout', myInit);
+            console.log('response.text: ', response.text);
+            console.log('response.json: ', response.json);
             const data = yield apply(response, response.json);
             console.log('data: ', data);
 
