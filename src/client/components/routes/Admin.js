@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddArticleForm from '../blog/AddArticleForm';
-import BlogListFiltrationPanel from '../blog/BlogListFiltrationPanel';
-import BlogList from '../blog/BlogList';
+import AddArticleForm from '../blog/AddArticleForm/AddArticleForm';
+import BlogListFiltrationPanel from '../blog/BlogListFiltrationPanel/BlogListFiltrationPanel';
+import BlogList from '../blog/BlogList/BlogList';
 
 class Admin extends Component {
     static propTypes = {

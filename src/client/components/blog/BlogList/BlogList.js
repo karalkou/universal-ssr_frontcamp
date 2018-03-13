@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
 import { connect } from 'react-redux';
-import { loadAllArticles, removeArticle } from '../../ducks/articles';
+import { loadAllArticles, removeArticle } from '../../../ducks/articles';
 import BlogListItem from './BlogListItem';
-import { mapToArr } from '../../utils';
+import { mapToArr } from '../../../utils';
 
 class BlogList extends Component {
     componentDidMount() {

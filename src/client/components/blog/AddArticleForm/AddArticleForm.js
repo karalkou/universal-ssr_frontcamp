@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
-import { addArticle } from '../../ducks/articles';
+import { addArticle } from '../../../ducks/articles';
 
 class AddArticleForm extends Component {
   state = {
