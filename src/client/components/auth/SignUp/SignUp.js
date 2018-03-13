@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import emailValidator from 'email-validator';
-import ErrorField from '../common/ErrorField/ErrorField';
+import ErrorField from '../../common/ErrorField/ErrorField';
 
 class SignUp extends Component {
     static propTypes = {};

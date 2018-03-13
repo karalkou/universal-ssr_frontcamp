@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp, signIn, signOut } from '../../ducks/auth';
-import SignIn from '../auth/SignIn';
-import SignUp from '../auth/SignUp';
+import SignIn from '../auth/SignIn/SignIn';
+import SignUp from '../auth/SignUp/SignUp';
 
 class AuthPage extends Component {
     componentWillReceiveProps(nextProps) {
