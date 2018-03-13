@@ -2,7 +2,12 @@ module.exports = {
     automock: false,
     browser: false,
     bail: false,
-    collectCoverageFrom: ['src/**/*.{js,jsx}', '!**/node_modules/**'],
+    collectCoverageFrom: [
+        'src/client/components/**/*.{js,jsx}',
+        'src/client/ducks/**/*.js',
+        'src/client/redux/**/*.js',
+        '!**/node_modules/**'
+    ],
 
     coverageDirectory: '<rootDir>/coverage',
 
