@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
-import PageContainer from './common/PageContainer';
-import ProtectedRoute from './common/ProtectedRoute';
+import PageContainer from './common/PageContainer/PageContainer';
+import ProtectedRoute from './common/ProtectedRoute/ProtectedRoute';
 import StartPage from './routes/Start';
 import AdminPage from './routes/Admin';
 import AuthPage from './routes/Auth';

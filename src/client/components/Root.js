@@ -11,6 +11,7 @@ import { ReducerRecord as ReduceRecordAuth } from '../ducks/auth';
 // Grab the state from a global variable injected into the server-generated HTML
 const preloadedState = window.PRELOADED_STATE;
 
+// Revive states of aticles, filters and auth. Make it immutable structures
 // const { articles, filters } = preloadedState;
 const articlesRevived = new ReduceRecordArticles().set('entities', arrayToMap([], ArticleModel));
 const filtersRevived = new ReduceRecordFilters();
