@@ -4,17 +4,15 @@ import BlogListFiltrationPanel from '../blog/BlogListFiltrationPanel/BlogListFil
 import BlogList from '../blog/BlogList/BlogList';
 
 class Admin extends Component {
-    static propTypes = {
-
-    };
+    static propTypes = {};
 
     render() {
         return (
             <div>
                 <h2>Admin Page</h2>
-                <AddArticleForm/>
-                <BlogListFiltrationPanel/>
-                <BlogList/>
+                <AddArticleForm />
+                <BlogListFiltrationPanel />
+                <BlogList />
             </div>
         );
     }
