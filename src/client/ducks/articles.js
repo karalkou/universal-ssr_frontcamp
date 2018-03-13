@@ -146,7 +146,8 @@ export function* fetchAllSaga() {
         headers,
     };
 
-    const response = yield call(fetch, '/api/blogs', myInit);
+    // const response = yield call(fetch, '/api/blogs', myInit);
+    const response = yield call(fetch, 'http://localhost:9000/api/blogs', myInit);
 
     const data = yield apply(response, response.json);
 
@@ -175,7 +176,8 @@ export function* addArcticleSaga(action) {
         body: `title=${title}&author=${author}&body=${body}`,
     };
 
-    const response = yield call(fetch, '/api/blogs', myInit);
+    // const response = yield call(fetch, '/api/blogs', myInit);
+    const response = yield call(fetch, 'http://localhost:9000/api/blogs', myInit);
 
     const data = yield apply(response, response.json);
 
@@ -204,7 +206,8 @@ export function* removeArcticleSaga(action) {
         headers,
     };
 
-    const response = yield call(fetch, `/api/blogs/${id}`, myInit);
+    // const response = yield call(fetch, `/api/blogs/${id}`, myInit);
+    const response = yield call(fetch, `http://localhost:9000/api/blogs/${id}`, myInit);
 
     const data = yield apply(response, response.json);
 

@@ -104,11 +104,12 @@ export function* signInSaga() {
             const myInit = {
                 method: 'POST',
                 mode: 'cors',
-                cache: 'default',
+                cache: 'default',credentials: 'include',
                 headers,
                 body: `username=${action.payload.email}&password=${action.payload.password}`,
             };
-            const response = yield call(fetch, '/api/login', myInit);
+            // const response = yield call(fetch, '/api/login', myInit);
+            const response = yield call(fetch, 'http://localhost:9000/api/login', myInit);
             const data = yield apply(response, response.json);
 
             if (data.success) {
@@ -146,11 +147,12 @@ export function* signUpSaga() {
             const myInit = {
                 method: 'POST',
                 mode: 'cors',
-                cache: 'default',
+                cache: 'default',credentials: 'include',
                 headers,
                 body: `username=${action.payload.email}&password=${action.payload.password}`,
             };
-            const response = yield call(fetch, '/api/register', myInit);
+            // const response = yield call(fetch, '/api/register', myInit);
+            const response = yield call(fetch, 'http://localhost:9000/api/register', myInit);
             const data = yield apply(response, response.json);
             console.log('data: ', data);
 
@@ -194,10 +196,11 @@ export function* signOutSaga() {
             const myInit = {
                 method: 'GET',
                 mode: 'cors',
-                cache: 'default',
+                cache: 'default',credentials: 'include',
                 headers,
             };
-            const response = yield call(fetch, '/api/logout', myInit);
+            // const response = yield call(fetch, '/api/logout', myInit);
+            const response = yield call(fetch, 'http://localhost:9000/api/logout', myInit);
             console.log('response.text: ', response.text);
             console.log('response.json: ', response.json);
             const data = yield apply(response, response.json);
