@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddArticleForm Component tests AddArticleForm match snapshot 1`] = `
+<div
+  className="sc-bdVaJa kUmsbz"
+>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div>
+      <input
+        className="field"
+        onChange={[Function]}
+        value=""
+      />
+    </div>
+    <div>
+      <textarea
+        className="field"
+        onChange={[Function]}
+        value=""
+      />
+    </div>
+    <div>
+      <input
+        type="submit"
+      />
+    </div>
+  </form>
+</div>
+`;
