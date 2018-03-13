@@ -31,12 +31,13 @@ function handleRender(req, res) {
         // Grab the initial state from our Redux store
         const preloadedStatePre = store.getState();
 
-        const { articles, filters } = preloadedStatePre;
+        const { articles, filters, auth } = preloadedStatePre;
 
         const preloadedState = {
             ...preloadedStatePre,
             articles: articles.toJS(),
             filters: filters.toJS(),
+            auth: auth.toJS(),
         };
 
         return res.render('layout', {

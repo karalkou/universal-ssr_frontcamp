@@ -6,6 +6,7 @@ import App from './App';
 import { arrayToMap } from '../utils';
 import { ArticleModel, ReducerRecord as ReduceRecordArticles } from '../ducks/articles';
 import { ReducerRecord as ReduceRecordFilters } from '../ducks/filters';
+import { ReducerRecord as ReduceRecordAuth } from '../ducks/auth';
 
 // Grab the state from a global variable injected into the server-generated HTML
 const preloadedState = window.PRELOADED_STATE;
@@ -13,11 +14,13 @@ const preloadedState = window.PRELOADED_STATE;
 // const { articles, filters } = preloadedState;
 const articlesRevived = new ReduceRecordArticles().set('entities', arrayToMap([], ArticleModel));
 const filtersRevived = new ReduceRecordFilters();
+const authRevived = new ReduceRecordAuth();
 
 const preloadedStatePost = {
     ...preloadedState,
     articles: articlesRevived,
     filters: filtersRevived,
+    auth: authRevived,
 };
 
 const store = configureStore(preloadedStatePost);
