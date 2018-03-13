@@ -32,13 +32,13 @@ class AddArticleForm extends Component {
           <AddArticleFormStyled>
               <form className="form" onSubmit={this.handleSubmit}>
                   <div>
-                      <input className="field" value={this.state.title} onChange={this.handleChange('title')}/>
+                      <input placeholder="Title" className="field" value={this.state.title} onChange={this.handleChange('title')}/>
                   </div>
                   <div>
-                      <textarea className="field" value={this.state.body} onChange={this.handleChange('body')}/>
+                      <textarea placeholder="Body" className="field" value={this.state.body} onChange={this.handleChange('body')}/>
                   </div>
                   <div>
-                      <input type="submit"/>
+                      <input type="submit" value="Add article" />
                   </div>
               </form>
           </AddArticleFormStyled>

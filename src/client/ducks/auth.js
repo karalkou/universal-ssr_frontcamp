@@ -90,7 +90,6 @@ export function signOut() {
  * Sagas
  */
 export function* signInSaga() {
-    console.log('*** signIn saga');
 
     while (true) {
         const action = yield take(SIGN_IN_REQUEST);
@@ -133,7 +132,6 @@ export function* signInSaga() {
 }
 
 export function* signUpSaga() {
-    console.log('*** signUp saga');
 
     while (true) {
         const action = yield take(SIGN_UP_START);
@@ -180,7 +178,6 @@ export function* signUpSaga() {
 }
 
 export function* signOutSaga() {
-    console.log('*** signOut saga');
 
     while (true) {
         const action = yield take(SIGN_OUT_REQUEST);

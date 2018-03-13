@@ -14,7 +14,7 @@ class SignUp extends Component {
                     <Field name="email" component={ErrorField} type="text" label="email" />
                     <Field name="password" component={ErrorField} type="password" label="password" />
                     <div>
-                        <input type="submit" disabled={this.props.invalid} />
+                        <input type="submit" value="Submit" disabled={this.props.invalid} />
                     </div>
                 </form>
             </div>

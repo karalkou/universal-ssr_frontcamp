@@ -15,7 +15,7 @@ To DO:
 13. ~~Handle SSR routing~~
 14. ~~Handle SSR requests to API (difficulties with ImmutableJS and SSR, see [issue on github](https://github.com/reactjs/react-router-redux/issues/441))~~
 15. ~~Proxify requests to api on production or should we use cors ?~~
-16. Add more tests
+16. ~~Add more tests (at least 1 snapshot and 1 reducer)~~
 17. Add styles
 18. Deliver files for dev/prod
 

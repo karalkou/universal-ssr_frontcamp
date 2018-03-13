@@ -6,7 +6,7 @@ module.exports = function returnFontsConfig() {
                     test: /\.(eot|svg|ttf|woff|woff2)$/,
                     loader: 'file-loader',
                     options: {
-                        name: 'images/[name].[ext]',
+                        name: 'fonts/[name].[ext]',
                     },
                 },
             ],

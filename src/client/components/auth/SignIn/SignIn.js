@@ -9,13 +9,13 @@ class SignIn extends Component {
                 <h3>Sign In</h3>
                 <form onSubmit={this.props.handleSubmit}>
                     <div>
-                        email: <Field name="email" component="input" type="text"/>
+                        email: <Field name="email" component="input" type="text" />
                     </div>
                     <div>
                         password: <Field name="password" component="input" type="password"/>
                     </div>
                     <div>
-                        <input type="submit"/>
+                        <input type="submit" value="Submit" />
                     </div>
                 </form>
             </div>
